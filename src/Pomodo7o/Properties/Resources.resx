@@ -148,4 +148,7 @@
   <data name="ToolTip_Reset" xml:space="preserve">
     <value>Reset</value>
   </data>
+  <data name="angry" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\angry.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

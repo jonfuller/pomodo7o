@@ -60,6 +60,13 @@ namespace Pomodo7o.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap angry {
+            get {
+                object obj = ResourceManager.GetObject("angry", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Icon icon_pause {
             get {
                 object obj = ResourceManager.GetObject("icon_pause", resourceCulture);
