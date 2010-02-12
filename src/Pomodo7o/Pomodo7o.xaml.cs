@@ -86,6 +86,9 @@ namespace Pomodo7o
             _btnReset.Visible = true;
             _btnPlay.Visible = !_currentTimer.IsRunning;
             _btnPause.Visible = _currentTimer.IsRunning;
+            _taskbarManager.SetOverlayIcon(
+                _currentTimer.IsRunning ? null : Properties.Resources.icon_pause,
+                _currentTimer.IsRunning ? String.Empty : Properties.Resources.Mode_Pause);
         }
 
         private void UpdateProgress(int percent)

@@ -103,6 +103,15 @@ namespace Pomodo7o.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Paused.
+        /// </summary>
+        internal static string Mode_Pause {
+            get {
+                return ResourceManager.GetString("Mode_Pause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rest Time.
         /// </summary>
         internal static string Mode_Rest {
