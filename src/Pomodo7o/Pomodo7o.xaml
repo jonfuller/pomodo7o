@@ -1,4 +1,4 @@
-﻿<Window x:Class="Pomodo7o.Win"
+﻿<Window x:Class="Pomodo7o.Pomodo7oWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Pomodo7o" Height="150" Width="250"

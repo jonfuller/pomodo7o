@@ -1,6 +1,4 @@
 using System;
-using System.Windows;
-using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace Pomodo7o
 {
@@ -9,11 +7,10 @@ namespace Pomodo7o
         [STAThread]
         static void Main()
         {
-            var win = TaskbarManager.IsPlatformSupported
-                             ? (Window)new Win(TaskbarManager.Instance)
-                             : new Bogus();
-            var app = new Application();
-            app.Run(win);
+            using(var app = new PomodoroApp())
+            {
+                app.Run(app.MainWindow);
+            }
         }
     }
 }
