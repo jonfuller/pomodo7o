@@ -3,7 +3,7 @@ using System.Timers;
 
 namespace Pomodo7o
 {
-    public class TomatoTimer
+    public class TomatoTimer : IDisposable
     {
         public event Action<int> TickPct = t => { };
         public event Action<TimeSpan> TickRemaining = t => { };
@@ -13,29 +13,38 @@ namespace Pomodo7o
         private DateTime? _pauseTime;
         private Timer _timer;
 
-        public TomatoTimer( TimeSpan callbackFrequency, TimeSpan lengthOfTimer )
+        public TomatoTimer(TimeSpan callbackFrequency, TimeSpan lengthOfTimer)
         {
+            var lastPercent = 0;
+
             _timer = new Timer()
-                .Chain( t => t.Interval = callbackFrequency.TotalMilliseconds )
-                .Chain( t => t.Elapsed += ( o, a ) =>
+                .Chain(t => t.Interval = callbackFrequency.TotalMilliseconds)
+                .Chain(t => t.Elapsed += (o, a) =>
                               {
-                                  if ( !IsRunning )
+                                  if(!IsRunning)
                                       return;
 
                                   var timeRemaining = (_startTime + lengthOfTimer) - DateTime.Now;
-
-                                  TickPct( GetPercentageComplete(
+                                  var currentPercent = GetPercentageComplete(
                                                DateTime.Now - _startTime,
-                                               lengthOfTimer ) );
-                                  TickRemaining( timeRemaining );
+                                               lengthOfTimer);
 
-                                  if ( timeRemaining.IsNegativeOrZero() )
+                                  if(currentPercent != lastPercent)
                                   {
+                                      lastPercent = currentPercent;
+                                      TickPct(currentPercent);
+                                  }
+
+                                  TickRemaining(timeRemaining);
+
+                                  if(timeRemaining.IsNegativeOrZero())
+                                  {
+                                      lastPercent = 0;
                                       Complete();
                                       Pause();
                                       _pauseTime = null;
                                   }
-                              } );
+                              });
         }
 
         public bool IsRunning
@@ -66,9 +75,14 @@ namespace Pomodo7o
             IsRunning = true;
         }
 
-        private int GetPercentageComplete( TimeSpan elapsed, TimeSpan total )
+        private int GetPercentageComplete(TimeSpan elapsed, TimeSpan total)
         {
-            return Convert.ToInt32( (elapsed.TotalMilliseconds * 100 / total.TotalMilliseconds) );
+            return Convert.ToInt32((elapsed.TotalMilliseconds * 100 / total.TotalMilliseconds));
+        }
+
+        public void Dispose()
+        {
+            _timer.Dispose();
         }
     }
 }
