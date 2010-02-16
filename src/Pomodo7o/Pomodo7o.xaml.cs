@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Interop;
 using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace Pomodo7o
 {
-    public partial class Pomodo7oWindow
+    public partial class Pomodo7oWindow : IPomodoroPublisher
     {
         private readonly TaskbarManager _taskbarManager;
 
@@ -37,7 +38,7 @@ namespace Pomodo7o
                 running ? String.Empty : Properties.Resources.Mode_Pause);
         }
 
-        private void Window_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             _taskbarManager.ThumbnailToolbars.AddButtons(
                 new WindowInteropHelper(this).Handle, _btnReset, _btnPlay, _btnPause);
@@ -56,6 +57,44 @@ namespace Pomodo7o
         private void PauseClicked()
         {
             Pause();
+        }
+
+        public void WorkStarted()
+        {
+            Icon = Properties.Resources.icon_tomato.GetBitmapFrame();
+        }
+
+        public void WorkPercent(int percent)
+        {
+        }
+
+        public void WorkTimeLeft(TimeSpan remaining)
+        {
+        }
+
+        public void WorkComplete()
+        {
+        }
+
+        public void RestStarted()
+        {
+            Icon = Properties.Resources.icon_rest.GetBitmapFrame();
+        }
+
+        public void RestPercent(int percent)
+        {
+        }
+
+        public void RestTimeLeft(TimeSpan remaining)
+        {
+        }
+
+        public void RestComplete()
+        {
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

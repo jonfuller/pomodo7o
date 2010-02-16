@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace Pomodo7o
 {
@@ -9,6 +12,18 @@ namespace Pomodo7o
         {
             action(target);
             return target;
+        }
+
+        public static BitmapFrame GetBitmapFrame(this Icon icon)
+        {
+            return BitmapFrame.Create(icon.GetStream());
+        }
+
+        public static Stream GetStream(this Icon icon)
+        {
+            var stream = new MemoryStream();
+            icon.Save(stream);
+            return stream;
         }
 
         public static TimeSpan Seconds(this int seconds)

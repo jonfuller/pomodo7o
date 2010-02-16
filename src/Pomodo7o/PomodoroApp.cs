@@ -26,7 +26,9 @@ namespace Pomodo7o
                 MainWindow = window;
                 _appController = new AppController(
                     (Pomodo7oWindow)MainWindow,
-                    Publishers.Append(new ProgressUpdater(TaskbarManager.Instance, window)));
+                    Publishers
+                        .Append(new ProgressUpdater(TaskbarManager.Instance, window))
+                        .Append(window));
             }
             else
             {

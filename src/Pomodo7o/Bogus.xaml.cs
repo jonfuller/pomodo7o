@@ -1,26 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-namespace Pomodo7o
+﻿namespace Pomodo7o
 {
-    /// <summary>
-    /// Interaction logic for Bogus.xaml
-    /// </summary>
-    public partial class Bogus : Window
+    public partial class Bogus
     {
         public Bogus()
         {
             InitializeComponent();
+            Title = Properties.Resources.NotSupported_Title;
         }
     }
 }
