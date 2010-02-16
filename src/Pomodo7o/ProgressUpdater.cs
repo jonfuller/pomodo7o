@@ -19,10 +19,6 @@ namespace Pomodo7o
 
         public void WorkStarted()
         {
-            _taskbarManager.SetOverlayIcon(
-                _window,
-                null,
-                Properties.Resources.Mode_Work);
         }
 
         public void WorkPercent(int percent)
@@ -42,10 +38,6 @@ namespace Pomodo7o
 
         public void RestStarted()
         {
-            _taskbarManager.SetOverlayIcon(
-                _window,
-                Properties.Resources.icon_rest,
-                Properties.Resources.Mode_Rest);
         }
 
         public void RestPercent(int percent)
