@@ -12,6 +12,7 @@ namespace Pomodo7o
         private ThumbnailToolbarButton _btnReset;
         private ThumbnailToolbarButton _btnPlay;
         private ThumbnailToolbarButton _btnPause;
+        private bool _workIsCurrentTimer;
 
         public event Action Play = () => { };
         public event Action Pause = () => { };
@@ -33,9 +34,7 @@ namespace Pomodo7o
             _btnReset.Visible = true;
             _btnPlay.Visible = !running;
             _btnPause.Visible = running;
-            _taskbarManager.SetOverlayIcon(this,
-                running ? null : Properties.Resources.icon_pause,
-                running ? String.Empty : Properties.Resources.Mode_Pause);
+            UpdateOverlayIcon(_workIsCurrentTimer, running);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -61,7 +60,8 @@ namespace Pomodo7o
 
         public void WorkStarted()
         {
-            Icon = Properties.Resources.icon_tomato.GetBitmapFrame();
+            _workIsCurrentTimer = true;
+            UpdateOverlayIcon(_workIsCurrentTimer, true);
         }
 
         public void WorkPercent(int percent)
@@ -78,7 +78,8 @@ namespace Pomodo7o
 
         public void RestStarted()
         {
-            Icon = Properties.Resources.icon_rest.GetBitmapFrame();
+            _workIsCurrentTimer = false;
+            UpdateOverlayIcon(_workIsCurrentTimer, true);
         }
 
         public void RestPercent(int percent)
@@ -95,6 +96,16 @@ namespace Pomodo7o
 
         public void Dispose()
         {
+        }
+
+        private void UpdateOverlayIcon(bool workIsCurrentTimer, bool running)
+        {
+            if(!running)
+                _taskbarManager.SetOverlayIcon(this, Properties.Resources.icon_pause, Properties.Resources.Mode_Pause);
+            else if(!workIsCurrentTimer)
+                _taskbarManager.SetOverlayIcon(this, Properties.Resources.icon_rest, Properties.Resources.Mode_Rest);
+            else
+                _taskbarManager.SetOverlayIcon(this, null, Properties.Resources.Mode_Work);
         }
     }
 }
