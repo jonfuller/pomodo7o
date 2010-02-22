@@ -39,10 +39,9 @@ namespace Pomodo7o
 
                                   if(timeRemaining.IsNegativeOrZero())
                                   {
-                                      lastPercent = 0;
                                       Complete();
-                                      Pause();
-                                      _pauseTime = null;
+                                      lastPercent = -1;
+                                      Stop();
                                   }
                               });
         }
@@ -61,6 +60,12 @@ namespace Pomodo7o
                              ? DateTime.Now - (_pauseTime.Value - _startTime)
                              : DateTime.Now;
             IsRunning = true;
+        }
+
+        public void Stop()
+        {
+            Pause();
+            _pauseTime = null;
         }
 
         public void Pause()

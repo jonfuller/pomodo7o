@@ -95,6 +95,13 @@ namespace Pomodo7o.Properties {
             }
         }
         
+        internal static System.Drawing.Icon icon_tomato_rest {
+            get {
+                object obj = ResourceManager.GetObject("icon_tomato_rest", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap image_angry {
             get {
                 object obj = ResourceManager.GetObject("image_angry", resourceCulture);
@@ -135,6 +142,24 @@ namespace Pomodo7o.Properties {
         internal static string NotSupported_Title {
             get {
                 return ResourceManager.GetString("NotSupported_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take a Break.
+        /// </summary>
+        internal static string ToolTip_GoToRest {
+            get {
+                return ResourceManager.GetString("ToolTip_GoToRest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go To Work.
+        /// </summary>
+        internal static string ToolTip_GoToWork {
+            get {
+                return ResourceManager.GetString("ToolTip_GoToWork", resourceCulture);
             }
         }
         

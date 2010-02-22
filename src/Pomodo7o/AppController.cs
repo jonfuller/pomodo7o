@@ -18,6 +18,8 @@ namespace Pomodo7o
             _window.Play += Start;
             _window.Reset += Reset;
             _window.Pause += Pause;
+            _window.GoToWork += GoToWork;
+            _window.TakeABreak += TakeABreak;
 
             _publishers = publishers;
 
@@ -28,25 +30,19 @@ namespace Pomodo7o
             _workTimer.TickRemaining += rmn => Notify(x => x.WorkTimeLeft(rmn));
             _workTimer.Complete += () =>
                                       {
-                                          _currentTimer = _restTimer;
                                           Notify(x => x.WorkComplete());
-                                          Start();
-                                          Notify(x => x.RestStarted());
+                                          TakeABreak();
                                       };
 
             _restTimer.TickPct += pct => Notify(x => x.RestPercent(pct));
             _restTimer.TickRemaining += rmn => Notify(x => x.RestTimeLeft(rmn));
             _restTimer.Complete += () =>
                                       {
-                                          _currentTimer = _workTimer;
                                           Notify(x => x.RestComplete());
-                                          Start();
-                                          Notify(x => x.WorkStarted());
+                                          GoToWork();
                                       };
 
-            _currentTimer = _workTimer;
-            Start();
-            Notify(x => x.WorkStarted());
+            GoToWork();
         }
 
         public void Dispose()
@@ -55,6 +51,25 @@ namespace Pomodo7o
             _publishers = null;
             _workTimer.Dispose();
             _restTimer.Dispose();
+        }
+
+        private void GoToWork()
+        {
+            StartAndNotify(_workTimer, x => x.WorkStarted());
+        }
+
+        private void TakeABreak()
+        {
+            StartAndNotify(_restTimer, x => x.RestStarted());
+        }
+
+        private void StartAndNotify(TomatoTimer timerToStart, Action<IPomodoroPublisher> ofAction)
+        {
+            if(_currentTimer != null)
+                _currentTimer.Stop();
+            _currentTimer = timerToStart;
+            Start();
+            Notify(ofAction);
         }
 
         private void Start()

@@ -1,22 +1,30 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Interop;
 using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace Pomodo7o
 {
+    using Res = Properties.Resources;
+
     public partial class Pomodo7oWindow : IPomodoroPublisher
     {
         private readonly TaskbarManager _taskbarManager;
 
-        private ThumbnailToolbarButton _btnReset;
-        private ThumbnailToolbarButton _btnPlay;
-        private ThumbnailToolbarButton _btnPause;
+        private readonly ThumbnailToolbarButton _btnReset;
+        private readonly ThumbnailToolbarButton _btnPlay;
+        private readonly ThumbnailToolbarButton _btnPause;
+        private readonly ThumbnailToolbarButton _btnGoToWork;
+        private readonly ThumbnailToolbarButton _btnGoToRest;
+
         private bool _workIsCurrentTimer;
 
         public event Action Play = () => { };
         public event Action Pause = () => { };
         public event Action Reset = () => { };
+        public event Action GoToWork = () => { };
+        public event Action TakeABreak = () => { };
 
         public Pomodo7oWindow(TaskbarManager taskbarManager)
         {
@@ -24,9 +32,11 @@ namespace Pomodo7o
 
             InitializeComponent();
 
-            _btnReset = new ThumbnailToolbarButton(Properties.Resources.icon_reset, Properties.Resources.ToolTip_Reset).Chain(btn => btn.Click += (o, e) => ResetClicked());
-            _btnPlay = new ThumbnailToolbarButton(Properties.Resources.icon_play, Properties.Resources.ToolTip_Play).Chain(btn => btn.Click += (o, e) => PlayClicked());
-            _btnPause = new ThumbnailToolbarButton(Properties.Resources.icon_pause, Properties.Resources.ToolTip_Pause).Chain(btn => btn.Click += (o, e) => PauseClicked());
+            _btnReset = Button(Res.icon_reset, Res.ToolTip_Reset, () => Reset());
+            _btnPlay = Button(Res.icon_play, Res.ToolTip_Play, () => Play());
+            _btnPause = Button(Res.icon_pause, Res.ToolTip_Pause, () => Pause());
+            _btnGoToWork = Button(Res.icon_tomato, Res.ToolTip_GoToWork, () => GoToWork());
+            _btnGoToRest = Button(Res.icon_tomato_rest, Res.ToolTip_GoToRest, () => TakeABreak());
         }
 
         public void RunningStatus(bool running)
@@ -40,27 +50,19 @@ namespace Pomodo7o
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             _taskbarManager.ThumbnailToolbars.AddButtons(
-                new WindowInteropHelper(this).Handle, _btnReset, _btnPlay, _btnPause);
-        }
-
-        private void PlayClicked()
-        {
-            Play();
-        }
-
-        private void ResetClicked()
-        {
-            Reset();
-        }
-
-        private void PauseClicked()
-        {
-            Pause();
+                new WindowInteropHelper(this).Handle,
+                _btnReset,
+                _btnPlay,
+                _btnPause,
+                _btnGoToWork,
+                _btnGoToRest);
         }
 
         public void WorkStarted()
         {
             _workIsCurrentTimer = true;
+            _btnGoToRest.Visible = true;
+            _btnGoToWork.Visible = false;
             UpdateOverlayIcon(_workIsCurrentTimer, true);
         }
 
@@ -79,6 +81,8 @@ namespace Pomodo7o
         public void RestStarted()
         {
             _workIsCurrentTimer = false;
+            _btnGoToRest.Visible = false;
+            _btnGoToWork.Visible = true;
             UpdateOverlayIcon(_workIsCurrentTimer, true);
         }
 
@@ -101,11 +105,20 @@ namespace Pomodo7o
         private void UpdateOverlayIcon(bool workIsCurrentTimer, bool running)
         {
             if(!running)
-                _taskbarManager.SetOverlayIcon(this, Properties.Resources.icon_pause, Properties.Resources.Mode_Pause);
+                _taskbarManager.SetOverlayIcon(this, Res.icon_pause, Res.Mode_Pause);
             else if(!workIsCurrentTimer)
-                _taskbarManager.SetOverlayIcon(this, Properties.Resources.icon_rest, Properties.Resources.Mode_Rest);
+                _taskbarManager.SetOverlayIcon(this, Res.icon_rest, Res.Mode_Rest);
             else
-                _taskbarManager.SetOverlayIcon(this, null, Properties.Resources.Mode_Work);
+                _taskbarManager.SetOverlayIcon(this, null, Res.Mode_Work);
+        }
+
+        private ThumbnailToolbarButton Button(Icon icon, string toolTip, Action onClick)
+        {
+            return new ThumbnailToolbarButton(icon, toolTip)
+                       {
+                           DismissOnClick = true
+                       }
+                .Chain(btn => btn.Click += (o, e) => onClick());
         }
     }
 }
