@@ -21,7 +21,7 @@ namespace Pomodo7o
                 new AggregateCatalog(
                     new DirectoryCatalog(@".\"))).ComposeParts(this);
 
-            var manager = !MSTaskbarManager.IsPlatformSupported
+            var manager = MSTaskbarManager.IsPlatformSupported
                              ? (ITaskbarManager)new TaskbarManager(MSTaskbarManager.Instance)
                              : new FakeTaskbarManager();
 
