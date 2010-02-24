@@ -9,9 +9,17 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*" />
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" >Created by Jon Fuller</Label>
-        <Label Grid.Row="1" >@jon__fuller</Label>
-        <Label Grid.Row="2" >http://jonfuller.codingtomusic.com</Label>
+        <Label Grid.Row="1" >Created by Jon Fuller</Label>
+        <Label Grid.Row="2" >@jon__fuller</Label>
+        <Label Grid.Row="3" >http://jonfuller.codingtomusic.com</Label>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="btnReset"    ToolTip="Reset"        Click="btnReset_Click"><Image Source="/Pomodo7o;component/Resources/reset.ico" /></Button>
+            <Button x:Name="btnPlay"     ToolTip="Play"         Click="btnPlay_Click"><Image Source="/Pomodo7o;component/Resources/play.ico" /></Button>
+            <Button x:Name="btnPause"    ToolTip="Pause"        Click="btnPause_Click"><Image Source="/Pomodo7o;component/Resources/pause.ico" /></Button>
+            <Button x:Name="btnGoToWork" ToolTip="Get to Work"  Click="btnGoToWork_Click"><Image Source="/Pomodo7o;component/Resources/tomato.ico" /></Button>
+            <Button x:Name="btnGoToRest" ToolTip="Take a Break" Click="btnGoToRest_Click"><Image Source="/Pomodo7o;component/Resources/tomato_rest.ico" /></Button>
+        </StackPanel>
     </Grid>
 </Window>

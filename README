@@ -1,6 +1,11 @@
 Pomodo7o is a pomodoro timer that highlights Windows 7 features.  Namely the taskbar progress indicator and thumbnail toolbars.
 
 ---------------
+v0.3
+Gracefully degrade for non Windows 7 systems.
+Add "toolbar" for those with non Windows 7 systems.
+
+---------------
 v0.2
 Ability to choose timer (via thumb-bar).
 Added plugin support (via MEF, by exporting IPomodoroPublisher).

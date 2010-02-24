@@ -8,10 +8,10 @@ namespace Pomodo7o
     [Export(typeof(IPomodoroPublisher))]
     public class ProgressUpdater : IPomodoroPublisher
     {
-        private readonly TaskbarManager _taskbarManager;
+        private readonly ITaskbarManager _taskbarManager;
         private readonly Window _window;
 
-        public ProgressUpdater(TaskbarManager taskbarManager, Window window)
+        public ProgressUpdater(ITaskbarManager taskbarManager, Window window)
         {
             _taskbarManager = taskbarManager;
             _window = window;

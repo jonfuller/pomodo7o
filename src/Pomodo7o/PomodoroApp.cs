@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Windows;
-using Microsoft.WindowsAPICodePack.Taskbar;
+
+using MSTaskbarManager = Microsoft.WindowsAPICodePack.Taskbar.TaskbarManager;
 
 namespace Pomodo7o
 {
@@ -20,20 +21,19 @@ namespace Pomodo7o
                 new AggregateCatalog(
                     new DirectoryCatalog(@".\"))).ComposeParts(this);
 
-            if(TaskbarManager.IsPlatformSupported)
-            {
-                var window = new Pomodo7oWindow(TaskbarManager.Instance);
-                MainWindow = window;
-                _appController = new AppController(
-                    (Pomodo7oWindow)MainWindow,
-                    Publishers
-                        .Append(new ProgressUpdater(TaskbarManager.Instance, window))
-                        .Append(window));
-            }
-            else
-            {
-                MainWindow = new Bogus();
-            }
+            var manager = !MSTaskbarManager.IsPlatformSupported
+                             ? (ITaskbarManager)new TaskbarManager(MSTaskbarManager.Instance)
+                             : new FakeTaskbarManager();
+
+            var window = new Pomodo7oWindow(manager);
+
+            _appController = new AppController(
+                window,
+                Publishers
+                    .Append(new ProgressUpdater(manager, window))
+                    .Append(window));
+
+            MainWindow = window;
         }
 
         public void Dispose()

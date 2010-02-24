@@ -73,10 +73,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Bogus.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pomodo7o.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,12 +83,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bogus.xaml.cs">
-      <DependentUpon>Bogus.xaml</DependentUpon>
-    </Compile>
     <Compile Include="AppController.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="FakeTaskbarManager.cs" />
     <Compile Include="IPomodoroPublisher.cs" />
+    <Compile Include="ITaskbarManager.cs" />
     <Compile Include="PomodoroApp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgressUpdater.cs" />
@@ -104,6 +99,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TaskbarManager.cs" />
     <Compile Include="TomatoTimer.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -112,19 +108,19 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\pause.ico" />
+    <Resource Include="Resources\pause.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\play.ico" />
+    <Resource Include="Resources\play.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\reset.ico" />
+    <Resource Include="Resources\reset.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\rest.ico" />
+    <Resource Include="Resources\rest.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\tomato.ico" />
+    <Resource Include="Resources\tomato.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="tomato.ico" />

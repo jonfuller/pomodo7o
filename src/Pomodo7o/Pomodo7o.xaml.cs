@@ -10,7 +10,7 @@ namespace Pomodo7o
 
     public partial class Pomodo7oWindow : IPomodoroPublisher
     {
-        private readonly TaskbarManager _taskbarManager;
+        private readonly ITaskbarManager _taskbarManager;
 
         private readonly ThumbnailToolbarButton _btnReset;
         private readonly ThumbnailToolbarButton _btnPlay;
@@ -26,7 +26,7 @@ namespace Pomodo7o
         public event Action GoToWork = () => { };
         public event Action TakeABreak = () => { };
 
-        public Pomodo7oWindow(TaskbarManager taskbarManager)
+        public Pomodo7oWindow(ITaskbarManager taskbarManager)
         {
             _taskbarManager = taskbarManager;
 
@@ -42,14 +42,20 @@ namespace Pomodo7o
         public void RunningStatus(bool running)
         {
             _btnReset.Visible = true;
+            btnReset.Visibility = running.ToVisibility();
+
             _btnPlay.Visible = !running;
+            btnPlay.Visibility = (!running).ToVisibility();
+
             _btnPause.Visible = running;
+            btnPause.Visibility = running.ToVisibility();
+
             UpdateOverlayIcon(_workIsCurrentTimer, running);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _taskbarManager.ThumbnailToolbars.AddButtons(
+            _taskbarManager.AddThumbButtons(
                 new WindowInteropHelper(this).Handle,
                 _btnReset,
                 _btnPlay,
@@ -62,7 +68,11 @@ namespace Pomodo7o
         {
             _workIsCurrentTimer = true;
             _btnGoToRest.Visible = true;
+            btnGoToRest.Visibility = true.ToVisibility();
+
             _btnGoToWork.Visible = false;
+            btnGoToWork.Visibility = false.ToVisibility();
+
             UpdateOverlayIcon(_workIsCurrentTimer, true);
         }
 
@@ -82,7 +92,11 @@ namespace Pomodo7o
         {
             _workIsCurrentTimer = false;
             _btnGoToRest.Visible = false;
+            btnGoToRest.Visibility = false.ToVisibility();
+
             _btnGoToWork.Visible = true;
+            btnGoToWork.Visibility = true.ToVisibility();
+
             UpdateOverlayIcon(_workIsCurrentTimer, true);
         }
 
@@ -120,5 +134,32 @@ namespace Pomodo7o
                        }
                 .Chain(btn => btn.Click += (o, e) => onClick());
         }
+
+        #region UI clicks
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            Reset();
+        }
+
+        private void btnPlay_Click(object sender, RoutedEventArgs e)
+        {
+            Play();
+        }
+
+        private void btnPause_Click(object sender, RoutedEventArgs e)
+        {
+            Pause();
+        }
+
+        private void btnGoToWork_Click(object sender, RoutedEventArgs e)
+        {
+            GoToWork();
+        }
+
+        private void btnGoToRest_Click(object sender, RoutedEventArgs e)
+        {
+            TakeABreak();
+        }
+        #endregion
     }
 }

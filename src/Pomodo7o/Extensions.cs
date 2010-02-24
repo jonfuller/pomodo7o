@@ -2,12 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace Pomodo7o
 {
     public static class Extensions
     {
+        public static Visibility ToVisibility(this bool visible)
+        {
+            return visible ? Visibility.Visible : Visibility.Collapsed;
+        }
+
         public static string Format(this string format, params object[] args)
         {
             return string.Format(format, args);
