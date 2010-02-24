@@ -1,0 +1,12 @@
+Pomodo7o is a pomodoro timer that highlights Windows 7 features.  Namely the taskbar progress indicator and thumbnail toolbars.
+
+---------------
+v0.2
+Ability to choose timer (via thumb-bar).
+Added plugin support (via MEF, by exporting IPomodoroPublisher).
+
+---------------
+v0.1
+Initial release.
+Switches between 25 and 5 minute timers.
+Ability to pause and reset.
