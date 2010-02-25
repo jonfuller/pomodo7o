@@ -14,7 +14,7 @@ namespace Pomodo7o
             return visible ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        public static string Format(this string format, params object[] args)
+        public static string ToFormat(this string format, params object[] args)
         {
             return string.Format(format, args);
         }

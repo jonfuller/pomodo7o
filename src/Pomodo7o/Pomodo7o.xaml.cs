@@ -18,6 +18,7 @@ namespace Pomodo7o
         private readonly ThumbnailToolbarButton _btnGoToWork;
         private readonly ThumbnailToolbarButton _btnGoToRest;
 
+        private readonly ViewModel _viewModel;
         private bool _workIsCurrentTimer;
 
         public event Action Play = () => { };
@@ -29,6 +30,7 @@ namespace Pomodo7o
         public Pomodo7oWindow(ITaskbarManager taskbarManager, ViewModel viewModel)
         {
             _taskbarManager = taskbarManager;
+            _viewModel = viewModel;
             DataContext = viewModel;
 
             InitializeComponent();
@@ -72,6 +74,7 @@ namespace Pomodo7o
 
         public void WorkTimeLeft(TimeSpan remaining)
         {
+            _viewModel.TimeRemaining = "{0}:{1}".ToFormat(remaining.Minutes, remaining.Seconds);
         }
 
         public void WorkComplete()
@@ -89,6 +92,7 @@ namespace Pomodo7o
 
         public void RestTimeLeft(TimeSpan remaining)
         {
+            _viewModel.TimeRemaining = "{0}:{1}".ToFormat(remaining.Minutes, remaining.Seconds);
         }
 
         public void RestComplete()

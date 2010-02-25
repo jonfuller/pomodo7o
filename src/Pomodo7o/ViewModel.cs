@@ -7,6 +7,7 @@ namespace Pomodo7o
         private int _percent;
         private bool _isPaused;
         private Brush _progressColor = Brushes.Green;
+        private string _timeRemaining = string.Empty;
 
         public int Percent
         {
@@ -24,6 +25,12 @@ namespace Pomodo7o
         {
             get { return _isPaused; }
             set { SetProperty(() => IsPaused, () => _isPaused, value); }
+        }
+
+        public string TimeRemaining
+        {
+            get { return _timeRemaining; }
+            set { SetProperty(() => TimeRemaining, () => _timeRemaining, value); }
         }
 
         public void SetProgressState(ProgressState state)
