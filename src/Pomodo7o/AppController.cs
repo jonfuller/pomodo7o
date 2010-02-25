@@ -24,8 +24,8 @@ namespace Pomodo7o
 
             _publishers = publishers;
 
-            _workTimer = new TomatoTimer(5.Seconds(), 25.Minutes());
-            _restTimer = new TomatoTimer(5.Seconds(), 5.Minutes());
+            _workTimer = new TomatoTimer(25.Minutes());
+            _restTimer = new TomatoTimer(5.Minutes());
 
             _workTimer.TickPct += pct => Notify(x => x.WorkPercent(pct));
             _workTimer.TickRemaining += rmn => Notify(x => x.WorkTimeLeft(rmn));

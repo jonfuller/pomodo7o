@@ -11,14 +11,14 @@ namespace Pomodo7o
 
         private DateTime _startTime;
         private DateTime? _pauseTime;
-        private Timer _timer;
+        private readonly Timer _timer;
 
-        public TomatoTimer(TimeSpan callbackFrequency, TimeSpan lengthOfTimer)
+        public TomatoTimer(TimeSpan lengthOfTimer)
         {
             var lastPercent = 0;
 
             _timer = new Timer()
-                .Chain(t => t.Interval = callbackFrequency.TotalMilliseconds)
+                .Chain(t => t.Interval = 1.Seconds().TotalMilliseconds)
                 .Chain(t => t.Elapsed += (o, a) =>
                               {
                                   if(!IsRunning)
