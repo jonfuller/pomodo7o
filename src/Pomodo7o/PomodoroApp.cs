@@ -24,13 +24,15 @@ namespace Pomodo7o
             var manager = MSTaskbarManager.IsPlatformSupported
                              ? (ITaskbarManager)new TaskbarManager(MSTaskbarManager.Instance)
                              : new FakeTaskbarManager();
+            var viewModel = new ViewModel();
 
-            var window = new Pomodo7oWindow(manager);
+            var window = new Pomodo7oWindow(manager, viewModel);
 
             _appController = new AppController(
                 window,
                 Publishers
-                    .Append(new ProgressUpdater(manager, window))
+                    .Append(new ProgressUpdater(new TaskbarProgressBar(manager, window)))
+                    .Append(new ProgressUpdater(new ViewModelProgressBar(viewModel)))
                     .Append(window));
 
             MainWindow = window;

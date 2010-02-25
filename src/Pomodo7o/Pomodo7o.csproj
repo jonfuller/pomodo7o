@@ -88,9 +88,12 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="FakeTaskbarManager.cs" />
     <Compile Include="IPomodoroPublisher.cs" />
+    <Compile Include="IProgressBar.cs" />
     <Compile Include="ITaskbarManager.cs" />
+    <Compile Include="NotifyPropertyChanged.cs" />
     <Compile Include="PomodoroApp.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ProgressState.cs" />
     <Compile Include="ProgressUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -101,7 +104,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="TaskbarManager.cs" />
+    <Compile Include="TaskbarProgressBar.cs" />
     <Compile Include="TomatoTimer.cs" />
+    <Compile Include="ViewModel.cs" />
+    <Compile Include="ViewModelProgressBar.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

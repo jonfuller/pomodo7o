@@ -26,9 +26,10 @@ namespace Pomodo7o
         public event Action GoToWork = () => { };
         public event Action TakeABreak = () => { };
 
-        public Pomodo7oWindow(ITaskbarManager taskbarManager)
+        public Pomodo7oWindow(ITaskbarManager taskbarManager, ViewModel viewModel)
         {
             _taskbarManager = taskbarManager;
+            DataContext = viewModel;
 
             InitializeComponent();
 

@@ -1,31 +1,27 @@
 using System;
 using System.ComponentModel.Composition;
-using System.Windows;
-using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace Pomodo7o
 {
     [Export(typeof(IPomodoroPublisher))]
     public class ProgressUpdater : IPomodoroPublisher
     {
-        private readonly ITaskbarManager _taskbarManager;
-        private readonly Window _window;
+        private readonly IProgressBar _progressBar;
 
-        public ProgressUpdater(ITaskbarManager taskbarManager, Window window)
+        public ProgressUpdater(IProgressBar progressBar)
         {
-            _taskbarManager = taskbarManager;
-            _window = window;
+            _progressBar = progressBar;
         }
 
         public void Paused()
         {
-            _taskbarManager.SetProgressState(TaskbarProgressBarState.Indeterminate, _window);
+            _progressBar.SetState((ProgressState.Paused));
         }
 
         public void Resumed()
         {
-            _taskbarManager.SetProgressState(TaskbarProgressBarState.Normal, _window);
-            _taskbarManager.SetProgressValue(0, 100, _window);
+            _progressBar.SetState(ProgressState.Green);
+            _progressBar.SetPercent(0);
         }
 
         public void WorkStarted()
@@ -72,34 +68,34 @@ namespace Pomodo7o
 
         private void UpdateProgress(int percent)
         {
-            _taskbarManager.SetProgressValue(percent, 100, _window);
+            _progressBar.SetPercent(percent);
         }
 
-        private void UpdateProgressState(TaskbarProgressBarState state)
+        private void UpdateProgressState(ProgressState state)
         {
-            _taskbarManager.SetProgressState(state, _window);
+            _progressBar.SetState(state);
         }
 
-        private TaskbarProgressBarState GetProgressStateWork(TimeSpan remaining)
+        private ProgressState GetProgressStateWork(TimeSpan remaining)
         {
             if(remaining < 1.Minutes())
-                return TaskbarProgressBarState.Error;
+                return ProgressState.Red;
 
             if(remaining < 5.Minutes())
-                return TaskbarProgressBarState.Paused;
+                return ProgressState.Yellow;
 
-            return TaskbarProgressBarState.Normal;
+            return ProgressState.Green;
         }
 
-        private TaskbarProgressBarState GetProgressStateRest(TimeSpan remaining)
+        private ProgressState GetProgressStateRest(TimeSpan remaining)
         {
             if(remaining < 30.Seconds())
-                return TaskbarProgressBarState.Error;
+                return ProgressState.Red;
 
             if(remaining < 1.Minutes())
-                return TaskbarProgressBarState.Paused;
+                return ProgressState.Yellow;
 
-            return TaskbarProgressBarState.Normal;
+            return ProgressState.Green;
         }
     }
 }
