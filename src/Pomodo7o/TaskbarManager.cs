@@ -29,9 +29,9 @@ namespace Pomodo7o
             _manager.SetProgressValue(current, max, window);
         }
 
-        public void SetProgressState(TaskbarProgressBarState state)
+        public void SetProgressState(TaskbarProgressBarState state, Window window)
         {
-            _manager.SetProgressState(state);
+            _manager.SetProgressState(state, window);
         }
     }
 }

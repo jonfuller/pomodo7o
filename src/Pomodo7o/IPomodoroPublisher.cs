@@ -13,5 +13,8 @@ namespace Pomodo7o
         void RestPercent(int percent);
         void RestTimeLeft(TimeSpan remaining);
         void RestComplete();
+
+        void Paused();
+        void Resumed();
     }
 }

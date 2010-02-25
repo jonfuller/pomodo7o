@@ -1,53 +1,40 @@
-﻿using System;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.Windows;
 using Pomodo7o;
 
 namespace Extensions
 {
     [Export(typeof(IPomodoroPublisher))]
-    public class AnnoyingMessageBox : IPomodoroPublisher
+    public class AnnoyingMessageBox : BasePublisher
     {
-        public void Dispose()
-        {
-        }
-
-        public void WorkStarted()
+        public override void WorkStarted()
         {
             MessageBox.Show("work started");
         }
 
-        public void WorkPercent(int percent)
+        public override void WorkPercent(int percent)
         {
             if(percent % 10 == 0)
                 MessageBox.Show("work percent:" + percent);
         }
 
-        public void WorkTimeLeft(TimeSpan remaining)
-        {
-        }
-
-        public void WorkComplete()
+        public override void WorkComplete()
         {
             MessageBox.Show("work complete");
         }
 
-        public void RestStarted()
+        public override void RestStarted()
         {
             MessageBox.Show("rest started");
         }
 
-        public void RestPercent(int percent)
+        public override void RestPercent(int percent)
         {
             if(percent % 10 == 0)
                 MessageBox.Show("rest percent:" + percent);
         }
 
-        public void RestTimeLeft(TimeSpan remaining)
-        {
-        }
-
-        public void RestComplete()
+        public override void RestComplete()
         {
             MessageBox.Show("rest complete");
         }

@@ -20,6 +20,7 @@ namespace Pomodo7o
             _window.Pause += Pause;
             _window.GoToWork += GoToWork;
             _window.TakeABreak += TakeABreak;
+            _window.Loaded += (s, e) => GoToWork();
 
             _publishers = publishers;
 
@@ -41,8 +42,6 @@ namespace Pomodo7o
                                           Notify(x => x.RestComplete());
                                           GoToWork();
                                       };
-
-            GoToWork();
         }
 
         public void Dispose()
@@ -75,19 +74,19 @@ namespace Pomodo7o
         private void Start()
         {
             _currentTimer.Start();
-            Dispatch(() => _window.RunningStatus(_currentTimer.IsRunning));
+            Notify(x => x.Resumed());
         }
 
         private void Reset()
         {
             _currentTimer.Reset();
-            Dispatch(() => _window.RunningStatus(_currentTimer.IsRunning));
+            Notify(x => x.Resumed());
         }
 
         private void Pause()
         {
             _currentTimer.Pause();
-            Dispatch(() => _window.RunningStatus(_currentTimer.IsRunning));
+            Notify(x => x.Paused());
         }
 
         private void Notify(Action<IPomodoroPublisher> ofAction)
@@ -97,7 +96,7 @@ namespace Pomodo7o
 
         private void Dispatch(Action toDispatch)
         {
-            _window.Dispatcher.Invoke(toDispatch);
+            _window.Dispatch(toDispatch);
         }
     }
 }

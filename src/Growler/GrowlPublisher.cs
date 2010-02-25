@@ -6,9 +6,9 @@ using Pomodo7o;
 namespace Growler
 {
     [Export(typeof(IPomodoroPublisher))]
-    public class GrowlPublisher : IPomodoroPublisher
+    public class GrowlPublisher : BasePublisher
     {
-        private GrowlConnector _growler;
+        private readonly GrowlConnector _growler;
 
         public GrowlPublisher()
         {
@@ -36,52 +36,32 @@ namespace Growler
                 });
         }
 
-        public void Dispose()
-        {
-        }
-
-        public void WorkStarted()
+        public override void WorkStarted()
         {
             Notify(
                 Properties.Resources.NotificationType_WorkStart,
                 Properties.Resources.Title_WorkStart);
         }
 
-        public void WorkComplete()
+        public override void WorkComplete()
         {
             Notify(
                 Properties.Resources.NotificationType_WorkComplete,
                 Properties.Resources.Title_WorkComplete);
         }
 
-        public void RestStarted()
+        public override void RestStarted()
         {
             Notify(
                 Properties.Resources.NotificationType_RestStart,
                 Properties.Resources.Title_RestStart);
         }
 
-        public void RestComplete()
+        public override void RestComplete()
         {
             Notify(
                 Properties.Resources.NotificationType_RestComplete,
                 Properties.Resources.Title_RestComplete);
-        }
-
-        public void WorkPercent(int percent)
-        {
-        }
-
-        public void WorkTimeLeft(TimeSpan remaining)
-        {
-        }
-
-        public void RestPercent(int percent)
-        {
-        }
-
-        public void RestTimeLeft(TimeSpan remaining)
-        {
         }
 
         private void Notify(string type, string title)

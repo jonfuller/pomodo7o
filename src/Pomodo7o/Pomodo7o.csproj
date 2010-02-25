@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppController.cs" />
+    <Compile Include="BasePublisher.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FakeTaskbarManager.cs" />
     <Compile Include="IPomodoroPublisher.cs" />

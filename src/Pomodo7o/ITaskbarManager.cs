@@ -10,6 +10,6 @@ namespace Pomodo7o
         void SetOverlayIcon(Window window, Icon icon, string accessibilityText);
         void AddThumbButtons(IntPtr windowHandle, params ThumbnailToolbarButton[] buttons);
         void SetProgressValue(int current, int max, Window window);
-        void SetProgressState(TaskbarProgressBarState state);
+        void SetProgressState(TaskbarProgressBarState state, Window window);
     }
 }

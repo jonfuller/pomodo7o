@@ -17,6 +17,17 @@ namespace Pomodo7o
             _window = window;
         }
 
+        public void Paused()
+        {
+            _taskbarManager.SetProgressState(TaskbarProgressBarState.Indeterminate, _window);
+        }
+
+        public void Resumed()
+        {
+            _taskbarManager.SetProgressState(TaskbarProgressBarState.Normal, _window);
+            _taskbarManager.SetProgressValue(0, 100, _window);
+        }
+
         public void WorkStarted()
         {
         }
@@ -66,7 +77,7 @@ namespace Pomodo7o
 
         private void UpdateProgressState(TaskbarProgressBarState state)
         {
-            _taskbarManager.SetProgressState(state);
+            _taskbarManager.SetProgressState(state, _window);
         }
 
         private TaskbarProgressBarState GetProgressStateWork(TimeSpan remaining)

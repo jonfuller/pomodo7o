@@ -39,18 +39,14 @@ namespace Pomodo7o
             _btnGoToRest = Button(Res.icon_tomato_rest, Res.ToolTip_GoToRest, () => TakeABreak());
         }
 
-        public void RunningStatus(bool running)
+        public void Paused()
         {
-            _btnReset.Visible = true;
-            btnReset.Visibility = running.ToVisibility();
+            RunningStatus(_workIsCurrentTimer, false);
+        }
 
-            _btnPlay.Visible = !running;
-            btnPlay.Visibility = (!running).ToVisibility();
-
-            _btnPause.Visible = running;
-            btnPause.Visibility = running.ToVisibility();
-
-            UpdateOverlayIcon(_workIsCurrentTimer, running);
+        public void Resumed()
+        {
+            RunningStatus(_workIsCurrentTimer, true);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -66,14 +62,7 @@ namespace Pomodo7o
 
         public void WorkStarted()
         {
-            _workIsCurrentTimer = true;
-            _btnGoToRest.Visible = true;
-            btnGoToRest.Visibility = true.ToVisibility();
-
-            _btnGoToWork.Visible = false;
-            btnGoToWork.Visibility = false.ToVisibility();
-
-            UpdateOverlayIcon(_workIsCurrentTimer, true);
+            RunningStatus(true, true);
         }
 
         public void WorkPercent(int percent)
@@ -90,14 +79,7 @@ namespace Pomodo7o
 
         public void RestStarted()
         {
-            _workIsCurrentTimer = false;
-            _btnGoToRest.Visible = false;
-            btnGoToRest.Visibility = false.ToVisibility();
-
-            _btnGoToWork.Visible = true;
-            btnGoToWork.Visibility = true.ToVisibility();
-
-            UpdateOverlayIcon(_workIsCurrentTimer, true);
+            RunningStatus(false, true);
         }
 
         public void RestPercent(int percent)
@@ -114,6 +96,33 @@ namespace Pomodo7o
 
         public void Dispose()
         {
+        }
+
+        public void Dispatch(Action toInvoke)
+        {
+            Dispatcher.Invoke(toInvoke);
+        }
+
+        private void RunningStatus(bool workIsCurrentTimer, bool running)
+        {
+            _workIsCurrentTimer = workIsCurrentTimer;
+
+            _btnGoToRest.Visible = workIsCurrentTimer;
+            btnGoToRest.Visibility = workIsCurrentTimer.ToVisibility();
+
+            _btnGoToWork.Visible = !workIsCurrentTimer;
+            btnGoToWork.Visibility = (!workIsCurrentTimer).ToVisibility();
+
+            _btnReset.Visible = true;
+            btnReset.Visibility = true.ToVisibility();
+
+            _btnPlay.Visible = !running;
+            btnPlay.Visibility = (!running).ToVisibility();
+
+            _btnPause.Visible = running;
+            btnPause.Visibility = running.ToVisibility();
+
+            UpdateOverlayIcon(workIsCurrentTimer, running);
         }
 
         private void UpdateOverlayIcon(bool workIsCurrentTimer, bool running)

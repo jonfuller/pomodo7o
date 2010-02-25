@@ -19,7 +19,7 @@ namespace Pomodo7o
         {
         }
 
-        public void SetProgressState(TaskbarProgressBarState state)
+        public void SetProgressState(TaskbarProgressBarState state, Window window)
         {
         }
     }
