@@ -84,13 +84,7 @@ namespace Pomodo7o
 
         public void WorkTimeLeft(TimeSpan remaining)
         {
-            _viewModel.TimeRemaining = "{0}:{1}".ToFormat(remaining.Minutes, remaining.Seconds);
-
-            var v = VisualTreeHelper.GetOffset(lblTime);
-
-            _taskbarManager.SetThumbnailClip(
-                (new WindowInteropHelper(this)).Handle,
-                new Rectangle((int)v.X, (int)v.Y, (int)lblTime.RenderSize.Width, (int)lblTime.RenderSize.Height));
+            UpdateTime(remaining);
         }
 
         public void WorkComplete()
@@ -108,13 +102,7 @@ namespace Pomodo7o
 
         public void RestTimeLeft(TimeSpan remaining)
         {
-            _viewModel.TimeRemaining = "{0}:{1}".ToFormat(remaining.Minutes, remaining.Seconds);
-
-            var v = VisualTreeHelper.GetOffset(lblTime);
-
-            _taskbarManager.SetThumbnailClip(
-                (new WindowInteropHelper(this)).Handle,
-                new Rectangle((int)v.X, (int)v.Y, (int)lblTime.RenderSize.Width, (int)lblTime.RenderSize.Height));
+            UpdateTime(remaining);
         }
 
         public void RestComplete()
@@ -160,6 +148,17 @@ namespace Pomodo7o
                 _taskbarManager.SetOverlayIcon(this, Res.icon_rest, Res.Mode_Rest);
             else
                 _taskbarManager.SetOverlayIcon(this, null, Res.Mode_Work);
+        }
+
+        private void UpdateTime(TimeSpan remaining)
+        {
+            _viewModel.TimeRemaining = "{0}:{1}".ToFormat(remaining.Minutes, remaining.Seconds);
+
+            var v = VisualTreeHelper.GetOffset(lblTime);
+
+            _taskbarManager.SetThumbnailClip(
+                (new WindowInteropHelper(this)).Handle,
+                new Rectangle((int)v.X, (int)v.Y, (int)lblTime.RenderSize.Width, (int)lblTime.RenderSize.Height));
         }
 
         private ThumbnailToolbarButton Button(Icon icon, string toolTip, Action onClick)
