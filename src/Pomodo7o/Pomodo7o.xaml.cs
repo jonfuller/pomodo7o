@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media;
 using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace Pomodo7o
@@ -61,6 +62,15 @@ namespace Pomodo7o
                 _btnPause,
                 _btnGoToWork,
                 _btnGoToRest);
+
+            var jumpList = JumpList.CreateJumpList();
+            jumpList.AddUserTasks(
+                new JumpListLink("http://github.com/jonfuller/pomodo7o/issues", "Log Bug"),
+                new JumpListLink("http://pomodo7o.uservoice.com/forums/40667-general", "Request a Feature"),
+                new JumpListLink("http://github.com/jonfuller/pomodo7o/downloads", "Check for updates"),
+                new JumpListLink("http://github.com/jonfuller/pomodo7o", "Fork Me!"),
+                new JumpListLink("http://www.twitter.com/jon_fuller", "Tweet Me"));
+            jumpList.Refresh();
         }
 
         public void WorkStarted()
@@ -75,6 +85,12 @@ namespace Pomodo7o
         public void WorkTimeLeft(TimeSpan remaining)
         {
             _viewModel.TimeRemaining = "{0}:{1}".ToFormat(remaining.Minutes, remaining.Seconds);
+
+            var v = VisualTreeHelper.GetOffset(lblTime);
+
+            _taskbarManager.SetThumbnailClip(
+                (new WindowInteropHelper(this)).Handle,
+                new Rectangle((int)v.X, (int)v.Y, (int)lblTime.RenderSize.Width, (int)lblTime.RenderSize.Height));
         }
 
         public void WorkComplete()
@@ -93,6 +109,12 @@ namespace Pomodo7o
         public void RestTimeLeft(TimeSpan remaining)
         {
             _viewModel.TimeRemaining = "{0}:{1}".ToFormat(remaining.Minutes, remaining.Seconds);
+
+            var v = VisualTreeHelper.GetOffset(lblTime);
+
+            _taskbarManager.SetThumbnailClip(
+                (new WindowInteropHelper(this)).Handle,
+                new Rectangle((int)v.X, (int)v.Y, (int)lblTime.RenderSize.Width, (int)lblTime.RenderSize.Height));
         }
 
         public void RestComplete()

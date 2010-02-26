@@ -11,5 +11,6 @@ namespace Pomodo7o
         void AddThumbButtons(IntPtr windowHandle, params ThumbnailToolbarButton[] buttons);
         void SetProgressValue(int current, int max, Window window);
         void SetProgressState(TaskbarProgressBarState state, Window window);
+        void SetThumbnailClip(IntPtr handle, Rectangle rectangle);
     }
 }

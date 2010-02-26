@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
         <Label Grid.Row="1" >Created by @jon__fuller</Label>
         <Label Grid.Row="2" >http://jonfuller.codingtomusic.com</Label>
-        <Label Grid.Row="3" Content="{Binding TimeRemaining}" />
+        <Label Grid.Row="3" x:Name="lblTime"  Content="{Binding TimeRemaining}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button x:Name="btnReset"    ToolTip="Reset"        Click="btnReset_Click"><Image Source="/Pomodo7o;component/Resources/reset.ico" /></Button>
             <Button x:Name="btnPlay"     ToolTip="Play"         Click="btnPlay_Click"><Image Source="/Pomodo7o;component/Resources/play.ico" /></Button>

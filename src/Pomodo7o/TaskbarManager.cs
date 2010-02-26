@@ -33,5 +33,10 @@ namespace Pomodo7o
         {
             _manager.SetProgressState(state, window);
         }
+
+        public void SetThumbnailClip(IntPtr handle, Rectangle rectangle)
+        {
+            _manager.TabbedThumbnail.SetThumbnailClip(handle, rectangle);
+        }
     }
 }

@@ -22,5 +22,9 @@ namespace Pomodo7o
         public void SetProgressState(TaskbarProgressBarState state, Window window)
         {
         }
+
+        public void SetThumbnailClip(IntPtr handle, Rectangle rectangle)
+        {
+        }
     }
 }
