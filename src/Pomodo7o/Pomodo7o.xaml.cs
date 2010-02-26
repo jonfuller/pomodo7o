@@ -152,13 +152,13 @@ namespace Pomodo7o
 
         private void UpdateTime(TimeSpan remaining)
         {
-            _viewModel.TimeRemaining = "{0}:{1}".ToFormat(remaining.Minutes, remaining.Seconds);
+            _viewModel.TimeRemaining = "{0}:{1:00}".ToFormat(remaining.Minutes, remaining.Seconds);
 
-            var v = VisualTreeHelper.GetOffset(lblTime);
+            var v = VisualTreeHelper.GetOffset(grdProgress);
 
             _taskbarManager.SetThumbnailClip(
                 (new WindowInteropHelper(this)).Handle,
-                new Rectangle((int)v.X, (int)v.Y, (int)lblTime.RenderSize.Width, (int)lblTime.RenderSize.Height));
+                new Rectangle((int)v.X, (int)v.Y, (int)grdProgress.RenderSize.Width, (int)grdProgress.RenderSize.Height));
         }
 
         private ThumbnailToolbarButton Button(Icon icon, string toolTip, Action onClick)

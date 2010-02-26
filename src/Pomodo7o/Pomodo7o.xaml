@@ -1,12 +1,11 @@
 ﻿<Window x:Class="Pomodo7o.Pomodo7oWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Pomodo7o" Height="150" Width="200"
+    Title="Pomodo7o" Height="100" Width="200"
         Loaded="Window_Loaded"
         Icon="tomato.ico">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -17,10 +16,12 @@
             <Button x:Name="btnGoToWork" ToolTip="Get to Work"  Click="btnGoToWork_Click"><Image Source="/Pomodo7o;component/Resources/tomato.ico" /></Button>
             <Button x:Name="btnGoToRest" ToolTip="Take a Break" Click="btnGoToRest_Click"><Image Source="/Pomodo7o;component/Resources/tomato_rest.ico" /></Button>
         </StackPanel>
-        <Label Grid.Row="1" x:Name="lblTime"  Content="{Binding TimeRemaining}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
-        <ProgressBar Grid.Row="2"
+        <Grid x:Name="grdProgress"  Grid.Row="1">
+            <ProgressBar
                      Value="{Binding Percent}"
                      Foreground="{Binding ProgressColor}"
                      IsIndeterminate="{Binding IsPaused}"/>
+            <Label Content="{Binding TimeRemaining}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16" />
+        </Grid>
     </Grid>
 </Window>
