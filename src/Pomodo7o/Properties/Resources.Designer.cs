@@ -110,6 +110,96 @@ namespace Pomodo7o.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://github.com/jonfuller/pomodo7o/issues.
+        /// </summary>
+        internal static string JumpList_Bug_Path {
+            get {
+                return ResourceManager.GetString("JumpList_Bug_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log Bug.
+        /// </summary>
+        internal static string JumpList_Bug_Title {
+            get {
+                return ResourceManager.GetString("JumpList_Bug_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.twitter.com/jon_fuller.
+        /// </summary>
+        internal static string JumpList_Contact_Path {
+            get {
+                return ResourceManager.GetString("JumpList_Contact_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tweet Me.
+        /// </summary>
+        internal static string JumpList_Contact_Title {
+            get {
+                return ResourceManager.GetString("JumpList_Contact_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://github.com/jonfuller/pomodo7o/downloads.
+        /// </summary>
+        internal static string JumpList_Download_Path {
+            get {
+                return ResourceManager.GetString("JumpList_Download_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for Updates.
+        /// </summary>
+        internal static string JumpList_Download_Title {
+            get {
+                return ResourceManager.GetString("JumpList_Download_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://pomodo7o.uservoice.com/forums/40667-general.
+        /// </summary>
+        internal static string JumpList_Feature_Path {
+            get {
+                return ResourceManager.GetString("JumpList_Feature_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request a Feature.
+        /// </summary>
+        internal static string JumpList_Feature_Title {
+            get {
+                return ResourceManager.GetString("JumpList_Feature_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://github.com/jonfuller/pomodo7o.
+        /// </summary>
+        internal static string JumpList_Fork_Path {
+            get {
+                return ResourceManager.GetString("JumpList_Fork_Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fork Me!.
+        /// </summary>
+        internal static string JumpList_Fork_Title {
+            get {
+                return ResourceManager.GetString("JumpList_Fork_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Paused.
         /// </summary>
         internal static string Mode_Pause {

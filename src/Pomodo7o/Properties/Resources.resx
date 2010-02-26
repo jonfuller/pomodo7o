@@ -166,4 +166,34 @@
   <data name="ToolTip_GoToWork" xml:space="preserve">
     <value>Go To Work</value>
   </data>
+  <data name="JumpList_Bug_Path" xml:space="preserve">
+    <value>http://github.com/jonfuller/pomodo7o/issues</value>
+  </data>
+  <data name="JumpList_Bug_Title" xml:space="preserve">
+    <value>Log Bug</value>
+  </data>
+  <data name="JumpList_Contact_Path" xml:space="preserve">
+    <value>http://www.twitter.com/jon_fuller</value>
+  </data>
+  <data name="JumpList_Contact_Title" xml:space="preserve">
+    <value>Tweet Me</value>
+  </data>
+  <data name="JumpList_Download_Path" xml:space="preserve">
+    <value>http://github.com/jonfuller/pomodo7o/downloads</value>
+  </data>
+  <data name="JumpList_Download_Title" xml:space="preserve">
+    <value>Check for Updates</value>
+  </data>
+  <data name="JumpList_Feature_Path" xml:space="preserve">
+    <value>http://pomodo7o.uservoice.com/forums/40667-general</value>
+  </data>
+  <data name="JumpList_Feature_Title" xml:space="preserve">
+    <value>Request a Feature</value>
+  </data>
+  <data name="JumpList_Fork_Path" xml:space="preserve">
+    <value>http://github.com/jonfuller/pomodo7o</value>
+  </data>
+  <data name="JumpList_Fork_Title" xml:space="preserve">
+    <value>Fork Me!</value>
+  </data>
 </root>

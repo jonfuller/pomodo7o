@@ -65,11 +65,11 @@ namespace Pomodo7o
 
             var jumpList = JumpList.CreateJumpList();
             jumpList.AddUserTasks(
-                new JumpListLink("http://github.com/jonfuller/pomodo7o/issues", "Log Bug"),
-                new JumpListLink("http://pomodo7o.uservoice.com/forums/40667-general", "Request a Feature"),
-                new JumpListLink("http://github.com/jonfuller/pomodo7o/downloads", "Check for updates"),
-                new JumpListLink("http://github.com/jonfuller/pomodo7o", "Fork Me!"),
-                new JumpListLink("http://www.twitter.com/jon_fuller", "Tweet Me"));
+                new JumpListLink(Res.JumpList_Bug_Path, Res.JumpList_Bug_Title),
+                new JumpListLink(Res.JumpList_Feature_Path, Res.JumpList_Feature_Title),
+                new JumpListLink(Res.JumpList_Download_Path, Res.JumpList_Download_Title),
+                new JumpListLink(Res.JumpList_Fork_Path, Res.JumpList_Fork_Title),
+                new JumpListLink(Res.JumpList_Contact_Path, Res.JumpList_Contact_Title));
             jumpList.Refresh();
         }
 
