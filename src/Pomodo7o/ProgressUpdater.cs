@@ -1,9 +1,7 @@
 using System;
-using System.ComponentModel.Composition;
 
 namespace Pomodo7o
 {
-    [Export(typeof(IPomodoroPublisher))]
     public class ProgressUpdater : IPomodoroPublisher
     {
         private readonly IProgressBar _progressBar;

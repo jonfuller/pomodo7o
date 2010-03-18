@@ -1,11 +1,9 @@
 ﻿using System;
-using System.ComponentModel.Composition;
 using Growl.Connector;
 using Pomodo7o;
 
 namespace Growler
 {
-    [Export(typeof(IPomodoroPublisher))]
     public class GrowlPublisher : BasePublisher
     {
         private readonly GrowlConnector _growler;

@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
 using System.Windows;
 
 namespace Pomodo7o
@@ -10,30 +8,17 @@ namespace Pomodo7o
     {
         private readonly AppController _appController;
 
-        [ImportMany(typeof(IPomodoroPublisher))]
-        public IEnumerable<IPomodoroPublisher> Publishers { get; set; }
-
         public PomodoroApp(
-            CompositionContainer container,
-            ViewModel viewModel,
-            ITaskbarManager manager,
-            Pomodo7oWindow window)
+            Pomodo7oWindow window,
+            IEnumerable<IPomodoroPublisher> publishers)
         {
-            container.ComposeParts(this);
-
-            _appController = new AppController(
-                window,
-                Publishers
-                    .Append(new ProgressUpdater(new TaskbarProgressBar(manager, window)))
-                    .Append(new ProgressUpdater(new ViewModelProgressBar(viewModel)))
-                    .Append(window));
+            _appController = new AppController(window, publishers);
 
             MainWindow = window;
         }
 
         public void Dispose()
         {
-            Publishers.ForEach(x => x.Dispose());
             _appController.Dispose();
         }
     }

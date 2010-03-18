@@ -1,10 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition.Hosting;
-using System.ComponentModel.Composition.Primitives;
 using StructureMap;
-using StructureMap.Configuration.DSL;
-using StructureMap.Pipeline;
 
 using MSTaskbarManager = Microsoft.WindowsAPICodePack.Taskbar.TaskbarManager;
 
@@ -17,14 +12,6 @@ namespace Pomodo7o
         {
             ObjectFactory.Configure(cfg =>
             {
-                cfg.SelectConstructor(() => new CompositionContainer());
-                cfg.SelectConstructor(() => new DirectoryCatalog(""));
-
-                cfg.For<ComposablePartCatalog>()
-                    .Use<DirectoryCatalog>().Ctor<string>().Is(@".\");
-
-                cfg.ForConcreteType<CompositionContainer>();
-
                 cfg.For<ITaskbarManager>()
                     .ConditionallyUse(x =>
                       {
@@ -36,6 +23,21 @@ namespace Pomodo7o
 
                 cfg.ForConcreteType<ViewModel>();
                 cfg.ForConcreteType<Pomodo7oWindow>();
+
+                cfg.Scan(scanner =>
+                 {
+                     scanner.AssembliesFromPath("Extensions");
+                     scanner.AddAllTypesOf<IPomodoroPublisher>();
+                 });
+
+                cfg.For<IPomodoroPublisher>()
+                    .Use(x => x.GetInstance<Pomodo7oWindow>());
+                cfg.For<IPomodoroPublisher>()
+                    .Use<ProgressUpdater>()
+                    .Ctor<IProgressBar>().Is(x => x.GetInstance<TaskbarProgressBar>());
+                cfg.For<IPomodoroPublisher>()
+                    .Use<ProgressUpdater>()
+                    .Ctor<IProgressBar>().Is(x => x.GetInstance<ViewModelProgressBar>());
             });
 
             using(var app = ObjectFactory.GetInstance<PomodoroApp>())
