@@ -4,8 +4,6 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Windows;
 
-using MSTaskbarManager = Microsoft.WindowsAPICodePack.Taskbar.TaskbarManager;
-
 namespace Pomodo7o
 {
     public class PomodoroApp : Application, IDisposable
@@ -15,18 +13,13 @@ namespace Pomodo7o
         [ImportMany(typeof(IPomodoroPublisher))]
         public IEnumerable<IPomodoroPublisher> Publishers { get; set; }
 
-        public PomodoroApp()
+        public PomodoroApp(
+            CompositionContainer container,
+            ViewModel viewModel,
+            ITaskbarManager manager,
+            Pomodo7oWindow window)
         {
-            new CompositionContainer(
-                new AggregateCatalog(
-                    new DirectoryCatalog(@".\"))).ComposeParts(this);
-
-            var manager = MSTaskbarManager.IsPlatformSupported
-                             ? (ITaskbarManager)new TaskbarManager(MSTaskbarManager.Instance)
-                             : new FakeTaskbarManager();
-            var viewModel = new ViewModel();
-
-            var window = new Pomodo7oWindow(manager, viewModel);
+            container.ComposeParts(this);
 
             _appController = new AppController(
                 window,
