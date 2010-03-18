@@ -31,14 +31,14 @@ namespace Pomodo7o
                     scanner.AddAllTypesOf<IPomodoroPublisher>();
                 });
 
-                cfg.For<IPomodoroPublisher>()
-                    .Use(x => x.GetInstance<Pomodo7oWindow>());
-                cfg.For<IPomodoroPublisher>()
-                    .Use<ProgressUpdater>()
-                    .Ctor<IProgressBar>().Is(x => x.GetInstance<TaskbarProgressBar>());
-                cfg.For<IPomodoroPublisher>()
-                    .Use<ProgressUpdater>()
-                    .Ctor<IProgressBar>().Is(x => x.GetInstance<ViewModelProgressBar>());
+                cfg.For<IPomodoroPublisher>().Singleton().AddInstances(x =>
+                {
+                    x.ConstructedBy(ctx => ctx.GetInstance<Pomodo7oWindow>());
+                    x.Type<ProgressUpdater>()
+                        .Ctor<IProgressBar>().Is(ctx => ctx.GetInstance<TaskbarProgressBar>());
+                    x.Type<ProgressUpdater>()
+                        .Ctor<IProgressBar>().Is(ctx => ctx.GetInstance<ViewModelProgressBar>());
+                });
             });
 
             var app = new Application { MainWindow = ObjectFactory.GetInstance<Pomodo7oWindow>() };
