@@ -31,9 +31,6 @@ namespace Pomodo7o
                      scanner.AddAllTypesOf<IPomodoroPublisher>();
                  });
 
-                cfg.ForConcreteType<TaskbarProgressBar>()
-                    .Configure.Ctor<Window>().Is(x => x.GetInstance<Pomodo7oWindow>());
-
                 cfg.For<IPomodoroPublisher>()
                     .Use(x => x.GetInstance<Pomodo7oWindow>());
                 cfg.For<IPomodoroPublisher>()

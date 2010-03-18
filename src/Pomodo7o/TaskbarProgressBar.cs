@@ -8,7 +8,7 @@ namespace Pomodo7o
         private readonly ITaskbarManager _manager;
         private readonly Window _handle;
 
-        public TaskbarProgressBar(ITaskbarManager manager, Window handle)
+        public TaskbarProgressBar(ITaskbarManager manager, Pomodo7oWindow handle)
         {
             _manager = manager;
             _handle = handle;
