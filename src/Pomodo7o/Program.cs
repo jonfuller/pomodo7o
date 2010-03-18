@@ -1,4 +1,5 @@
 using System;
+using System.Windows;
 using StructureMap;
 
 using MSTaskbarManager = Microsoft.WindowsAPICodePack.Taskbar.TaskbarManager;
@@ -21,14 +22,17 @@ namespace Pomodo7o
                           x.TheDefault.IsThis(new FakeTaskbarManager());
                       });
 
-                cfg.ForConcreteType<ViewModel>();
-                cfg.ForConcreteType<Pomodo7oWindow>();
+                cfg.For<ViewModel>().Singleton().Use<ViewModel>();
+                cfg.For<Pomodo7oWindow>().Singleton().Use<Pomodo7oWindow>();
 
                 cfg.Scan(scanner =>
                  {
                      scanner.AssembliesFromPath("Extensions");
                      scanner.AddAllTypesOf<IPomodoroPublisher>();
                  });
+
+                cfg.ForConcreteType<TaskbarProgressBar>()
+                    .Configure.Ctor<Window>().Is(x => x.GetInstance<Pomodo7oWindow>());
 
                 cfg.For<IPomodoroPublisher>()
                     .Use(x => x.GetInstance<Pomodo7oWindow>());
@@ -40,7 +44,8 @@ namespace Pomodo7o
                     .Ctor<IProgressBar>().Is(x => x.GetInstance<ViewModelProgressBar>());
             });
 
-            using(var app = ObjectFactory.GetInstance<PomodoroApp>())
+            var app = new Application {MainWindow = ObjectFactory.GetInstance<Pomodo7oWindow>()};
+            using(ObjectFactory.GetInstance<AppController>())
             {
                 app.Run(app.MainWindow);
             }
