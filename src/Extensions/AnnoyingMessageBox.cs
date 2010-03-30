@@ -1,10 +1,8 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows;
+﻿using System.Windows;
 using Pomodo7o;
 
 namespace Extensions
 {
-    [Export(typeof(IPomodoroPublisher))]
     public class AnnoyingMessageBox : BasePublisher
     {
         public override void WorkStarted()
