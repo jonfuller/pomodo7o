@@ -157,7 +157,7 @@ namespace Pomodo7o
             var v = VisualTreeHelper.GetOffset(grdProgress);
 
             _taskbarManager.SetThumbnailClip(
-                (new WindowInteropHelper(this)).Handle,
+                new WindowInteropHelper(this).Handle,
                 new Rectangle((int)v.X, (int)v.Y, (int)grdProgress.RenderSize.Width, (int)grdProgress.RenderSize.Height));
         }
 
