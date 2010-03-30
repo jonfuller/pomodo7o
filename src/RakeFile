@@ -1,0 +1,12 @@
+require 'albacore'
+
+task :default => %W(
+  msbuild
+)
+
+desc "Build using MSBuild"
+msbuild do |msb|
+  msb.properties :configuration => :Debug
+  msb.targets :Clean, :Build
+  msb.solution = "Pomodo7o.sln"
+end
