@@ -1,12 +1,79 @@
 require 'albacore'
 
-task :default => %W(
-  msbuild
-)
+task :default => %W(build)
+task :build, :needs => [:clean, :assemblyinfo, :debug_config, :msbuild]
+task :release, :needs => [:clean, :version, :assemblyinfo, :release_config, :msbuild, :copy_extensions, :package, :upload]
+task :package, :needs => [:package_vanilla, :package_extensions]
 
-desc "Build using MSBuild"
+task :clean do
+  FileUtils.rm_rf Dir.glob('*.zip')
+  FileUtils.rm_rf Dir.glob('**/*obj')
+  FileUtils.rm_rf Dir.glob('**/*bin')
+end
+
 msbuild do |msb|
-  msb.properties :configuration => :Debug
-  msb.targets :Clean, :Build
-  msb.solution = "Pomodo7o.sln"
+  msb.properties @build_config[:properties]
+  msb.targets @build_config[:targets]
+  msb.solution = 'Pomodo7o.sln'
+end
+
+task :debug_config do
+  @build_config = {
+    :properties => {
+      :configuration => :Debug
+    },
+    :targets => [:Build]
+  }
+end
+
+task :release_config, :needs => [:version] do
+  @build_config = {
+    :properties => {
+      :configuration => :Release
+    },
+    :build_output_location => 'Pomodo7o/bin/Release',
+    :package_location => File.dirname(__FILE__),
+    :package_vanilla_filename => "Pomodo7o.v#{@version}.zip",
+    :package_extensions_filename => "Pomodo7o.v#{@version}.WithExtensions.zip",
+    :targets => [:Build]
+  }
+end
+
+task :version do
+  @version = '0.5'
+  @long_version = '0.5.0.0'
+end
+
+task :copy_extensions do
+  extensions_dir = "#{@build_config[:build_output_location]}/Extensions"
+  FileUtils.mkdir extensions_dir
+  FileUtils.cp(Dir.glob('Growler/bin/Release/*Growl*'), extensions_dir)
+end
+
+
+task :upload
+
+zip :package_vanilla, :needs => [:release_config] do |zip|
+  zip.exclusions Regexp.new("#{@build_config[:build_output_location]}/Extensions")
+  zip.directories_to_zip @build_config[:build_output_location]
+  zip.output_file = @build_config[:package_vanilla_filename]
+  zip.output_path = @build_config[:package_location]
+end
+
+zip :package_extensions, :needs => [:release_config] do |zip|
+  zip.exclusions
+  zip.directories_to_zip @build_config[:build_output_location]
+  zip.output_file = @build_config[:package_extensions_filename]
+  zip.output_path = @build_config[:package_location]
+end
+
+assemblyinfo :assemblyinfo, :needs =>[:version] do |asm|
+  asm.version = @long_version
+  asm.file_version = @long_version
+  asm.title = 'Pomodo7o'
+  asm.description = 'A Pomodoro timer that highlights Windows 7 taskbar features.'
+  asm.company_name = 'Jon Fuller'
+  asm.product_name = 'Pomodo7o'
+  asm.copyright = 'Copyright Jon Fuller 2010'
+  asm.output_file = 'Pomodo7o/Properties/AssemblyInfo.cs'
 end
