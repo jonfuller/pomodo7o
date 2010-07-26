@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using StructureMap;
 
@@ -11,7 +13,8 @@ namespace Pomodo7o
         [STAThread]
         static void Main()
         {
-            ObjectFactory.Configure(cfg =>
+            var container = new Container();
+            container.Configure(cfg =>
             {
                 cfg.For<ITaskbarManager>()
                     .ConditionallyUse(x =>
@@ -41,8 +44,8 @@ namespace Pomodo7o
                 });
             });
 
-            var app = new Application { MainWindow = ObjectFactory.GetInstance<Pomodo7oWindow>() };
-            using (ObjectFactory.GetInstance<AppController>())
+            var app = new Application { MainWindow = container.GetInstance<Pomodo7oWindow>() };
+            using (container.GetInstance<AppController>())
             {
                 app.Run(app.MainWindow);
             }
