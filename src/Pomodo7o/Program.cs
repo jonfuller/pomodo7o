@@ -1,6 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Windows;
 using StructureMap;
 
@@ -30,8 +29,12 @@ namespace Pomodo7o
 
                 cfg.Scan(scanner =>
                 {
-                    scanner.AssembliesFromPath("Extensions");
-                    scanner.AddAllTypesOf<IPomodoroPublisher>();
+                    var extensionDir = "Extensions";
+                    if (Directory.Exists(extensionDir))
+                    {
+                        scanner.AssembliesFromPath(extensionDir);
+                        scanner.AddAllTypesOf<IPomodoroPublisher>();
+                    }
                 });
 
                 cfg.For<IPomodoroPublisher>().Singleton().AddInstances(x =>
