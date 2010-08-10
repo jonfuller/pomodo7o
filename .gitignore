@@ -1,6 +1,1 @@
-*.suo
-bin/
-obj/
-_ReSharper*
-Pomodo7o.4.5.resharper.user
-*.bak
+results.xml
