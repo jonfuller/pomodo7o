@@ -13,6 +13,7 @@ end
 
 task :fetch do
   `nu install castle.dynamicproxy2`
+  `nu install structuremap`
 end
 
 msbuild do |msb|
