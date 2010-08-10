@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Castle.DynamicProxy;
 using StructureMap.Graph;
 
 namespace Pomodo7o.StructureMap
@@ -24,7 +23,7 @@ namespace Pomodo7o.StructureMap
             {
                 registry
                     .For(type)
-                    .EnrichWith((context, obj) => Notifiable.MakeForInterface(type, obj, new ProxyGenerator()));
+                    .EnrichWith((context, obj) => Notifiable.MakeForInterface(type, obj));
             });
         }
 
@@ -39,7 +38,7 @@ namespace Pomodo7o.StructureMap
                         .GetParameters()
                         .Select(p => context.GetInstance(p.ParameterType));
 
-                    return Notifiable.MakeForClass(type, ctorArgs.ToArray(), new ProxyGenerator());
+                    return Notifiable.MakeForClass(type, ctorArgs.ToArray());
                 });
 
                 registry.For(type).Use(inst);

@@ -6,14 +6,16 @@ namespace Pomodo7o.StructureMap
 {
     public class Notifiable
     {
-        public static object MakeForInterface(Type type, object obj, ProxyGenerator generator)
+        private static ProxyGenerator generator = new ProxyGenerator();
+
+        public static object MakeForInterface(Type type, object obj)
         {
             var maker = typeof(Notifiable).GetMethod("MakeForInterfaceGeneric");
             var typed = maker.MakeGenericMethod(type);
             return typed.Invoke(null, new[] { obj, generator });
         }
 
-        public static T MakeForInterfaceGeneric<T>(T obj, ProxyGenerator generator) where T : class
+        public static T MakeForInterfaceGeneric<T>(T obj) where T : class
         {
             if(!typeof(T).IsInterface)
                 throw new InvalidOperationException(string.Format("{0} is not an interface", typeof(T).Name));
@@ -25,14 +27,14 @@ namespace Pomodo7o.StructureMap
                 new PropertyChangedDecorator());
         }
 
-        public static object MakeForClass(Type type, object[] ctorArgs, ProxyGenerator generator)
+        public static object MakeForClass(Type type, params object[] ctorArgs)
         {
             var maker = typeof(Notifiable).GetMethod("MakeForClassGeneric");
             var typed = maker.MakeGenericMethod(type);
-            return typed.Invoke(null, new object[] { ctorArgs, generator });
+            return typed.Invoke(null, new object[] { generator, ctorArgs });
         }
 
-        public static T MakeForClassGeneric<T>(object[] ctorArgs, ProxyGenerator generator) where T : class
+        public static T MakeForClassGeneric<T>(params object[] ctorArgs) where T : class
         {
             return (T)generator.CreateClassProxy(
                 typeof(T),
