@@ -1,7 +1,9 @@
 using System.Windows.Media;
+using Pomodo7o.StructureMap;
 
 namespace Pomodo7o
 {
+    [AutoNotify]
     public class ViewModel
     {
         public ViewModel()

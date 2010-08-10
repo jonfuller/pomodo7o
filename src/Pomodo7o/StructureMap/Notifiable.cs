@@ -12,7 +12,7 @@ namespace Pomodo7o.StructureMap
         {
             var maker = typeof(Notifiable).GetMethod("MakeForInterfaceGeneric");
             var typed = maker.MakeGenericMethod(type);
-            return typed.Invoke(null, new[] { obj, generator });
+            return typed.Invoke(null, new[] { obj });
         }
 
         public static T MakeForInterfaceGeneric<T>(T obj) where T : class
@@ -31,7 +31,7 @@ namespace Pomodo7o.StructureMap
         {
             var maker = typeof(Notifiable).GetMethod("MakeForClassGeneric");
             var typed = maker.MakeGenericMethod(type);
-            return typed.Invoke(null, new object[] { generator, ctorArgs });
+            return typed.Invoke(null, new object[] { ctorArgs });
         }
 
         public static T MakeForClassGeneric<T>(params object[] ctorArgs) where T : class

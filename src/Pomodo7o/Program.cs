@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Windows;
-using Castle.DynamicProxy;
 using Pomodo7o.StructureMap;
 using StructureMap;
 
@@ -17,6 +16,12 @@ namespace Pomodo7o
             var container = new Container();
             container.Configure(cfg =>
             {
+                cfg.Scan(scanner =>
+                {
+                    scanner.With<AutoNotifyScanner>();
+                    scanner.TheCallingAssembly();
+                });
+
                 cfg.For<ITaskbarManager>()
                     .ConditionallyUse(x =>
                     {
@@ -26,7 +31,7 @@ namespace Pomodo7o
                         x.TheDefault.IsThis(new FakeTaskbarManager());
                     });
 
-                cfg.For<ViewModel>().Singleton().Use(() => Notifiable.MakeForClassGeneric<ViewModel>());
+                cfg.For<ViewModel>().Singleton();
                 cfg.For<Pomodo7oWindow>().Singleton().Use<Pomodo7oWindow>();
 
                 cfg.Scan(scanner =>
