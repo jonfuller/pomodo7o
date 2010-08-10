@@ -132,7 +132,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="StructureMap\AutoNotifyAttribute.cs" />
-    <Compile Include="StructureMap\AutoNotifyScanner.cs" />
+    <Compile Include="StructureMap\AutoNotifyConvention.cs" />
     <Compile Include="StructureMap\LooseConstructorInstance.cs" />
     <Compile Include="StructureMap\Notifiable.cs" />
     <Compile Include="StructureMap\PropertyChangedDecorator.cs" />

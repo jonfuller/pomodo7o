@@ -18,7 +18,7 @@ namespace Pomodo7o
             {
                 cfg.Scan(scanner =>
                 {
-                    scanner.With<AutoNotifyScanner>();
+                    scanner.With(new AutoNotifyConvention());
                     scanner.TheCallingAssembly();
                 });
 
