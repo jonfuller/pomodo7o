@@ -11,10 +11,15 @@ task :clean do
   FileUtils.rm_rf Dir.glob('**/*bin')
 end
 
+task :fetch do
+  `nu install castle.dynamicproxy2`
+end
+
 msbuild do |msb|
+  msb.path_to_command = File.join(ENV['windir'], 'Microsoft.NET', 'Framework', 'v4.0.30319', 'MSBuild.exe')
   msb.properties @build_config[:properties]
   msb.targets @build_config[:targets]
-  msb.solution = 'Pomodo7o.sln'
+  msb.solution = 'src/Pomodo7o.sln'
 end
 
 task :debug_config do
@@ -31,10 +36,10 @@ task :release_config, :needs => [:version] do
     :properties => {
       :configuration => :Release
     },
-    :build_output_location => 'Pomodo7o/bin/Release',
+    :build_output_location => 'src/Pomodo7o/bin/Release',
     :package_location => File.dirname(__FILE__),
-    :package_vanilla_filename => "Pomodo7o.v#{@version}.zip",
-    :package_extensions_filename => "Pomodo7o.v#{@version}.WithExtensions.zip",
+    :package_vanilla_filename => "src/Pomodo7o.v#{@version}.zip",
+    :package_extensions_filename => "src/Pomodo7o.v#{@version}.WithExtensions.zip",
     :targets => [:Build]
   }
 end
@@ -47,11 +52,7 @@ end
 task :copy_extensions do
   extensions_dir = "#{@build_config[:build_output_location]}/Extensions"
   FileUtils.mkdir extensions_dir
-  FileUtils.cp(Dir.glob('Growler/bin/Release/*Growl*'), extensions_dir)
-end
-
-task :fetch do
-  `nu install castle.dynamicproxy2`
+  FileUtils.cp(Dir.glob('src/Growler/bin/Release/*Growl*'), extensions_dir)
 end
 
 task :upload
@@ -78,5 +79,5 @@ assemblyinfo :assemblyinfo, :needs =>[:version] do |asm|
   asm.company_name = 'Jon Fuller'
   asm.product_name = 'Pomodo7o'
   asm.copyright = 'Copyright Jon Fuller 2010'
-  asm.output_file = 'Pomodo7o/Properties/AssemblyInfo.cs'
+  asm.output_file = 'src/Pomodo7o/Properties/AssemblyInfo.cs'
 end
