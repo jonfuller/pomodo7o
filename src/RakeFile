@@ -1,7 +1,7 @@
 require 'albacore'
 
 task :default => %W(build)
-task :build, :needs => [:clean, :assemblyinfo, :debug_config, :msbuild]
+task :build, :needs => [:clean, :fetch, :assemblyinfo, :debug_config, :msbuild]
 task :release, :needs => [:clean, :version, :assemblyinfo, :release_config, :msbuild, :copy_extensions, :package, :upload]
 task :package, :needs => [:package_vanilla, :package_extensions]
 
@@ -50,6 +50,9 @@ task :copy_extensions do
   FileUtils.cp(Dir.glob('Growler/bin/Release/*Growl*'), extensions_dir)
 end
 
+task :fetch do
+  `nu install castle.dynamicproxy2`
+end
 
 task :upload
 

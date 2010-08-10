@@ -56,6 +56,12 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\lib\castle.core\net-35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.DynamicProxy2">
+      <HintPath>..\..\lib\castle.dynamicproxy2\net-35\Castle.DynamicProxy2.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -126,6 +132,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="StructureMap\AutoNotifyAttribute.cs" />
+    <Compile Include="StructureMap\AutoNotifyScanner.cs" />
+    <Compile Include="StructureMap\LooseConstructorInstance.cs" />
+    <Compile Include="StructureMap\Notifiable.cs" />
+    <Compile Include="StructureMap\PropertyChangedDecorator.cs" />
     <Compile Include="TaskbarManager.cs" />
     <Compile Include="TaskbarProgressBar.cs" />
     <Compile Include="TomatoTimer.cs" />
