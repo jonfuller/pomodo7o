@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Pomodo7o;
+using Pomodoro.Core;
 
 namespace Extensions
 {

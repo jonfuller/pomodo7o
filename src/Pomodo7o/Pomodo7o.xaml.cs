@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using Microsoft.WindowsAPICodePack.Taskbar;
+using Pomodoro.Core;
 
 namespace Pomodo7o
 {
@@ -19,7 +20,7 @@ namespace Pomodo7o
         private readonly ThumbnailToolbarButton _btnGoToWork;
         private readonly ThumbnailToolbarButton _btnGoToRest;
 
-        private readonly ViewModel _viewModel;
+        private readonly WpfViewModel _viewModel;
         private bool _workIsCurrentTimer;
 
         public event Action Play = () => { };
@@ -28,7 +29,7 @@ namespace Pomodo7o
         public event Action GoToWork = () => { };
         public event Action TakeABreak = () => { };
 
-        public Pomodo7oWindow(ITaskbarManager taskbarManager, ViewModel viewModel)
+        public Pomodo7oWindow(ITaskbarManager taskbarManager, WpfViewModel viewModel)
         {
             _taskbarManager = taskbarManager;
             _viewModel = viewModel;
@@ -142,12 +143,13 @@ namespace Pomodo7o
 
         private void UpdateOverlayIcon(bool workIsCurrentTimer, bool running)
         {
+            var thisHandle = new WindowInteropHelper(this).Handle;
             if(!running)
-                _taskbarManager.SetOverlayIcon(this, Res.icon_pause, Res.Mode_Pause);
+                _taskbarManager.SetOverlayIcon(thisHandle, Res.icon_pause, Res.Mode_Pause);
             else if(!workIsCurrentTimer)
-                _taskbarManager.SetOverlayIcon(this, Res.icon_rest, Res.Mode_Rest);
+                _taskbarManager.SetOverlayIcon(thisHandle, Res.icon_rest, Res.Mode_Rest);
             else
-                _taskbarManager.SetOverlayIcon(this, null, Res.Mode_Work);
+                _taskbarManager.SetOverlayIcon(thisHandle, null, Res.Mode_Work);
         }
 
         private void UpdateTime(TimeSpan remaining)

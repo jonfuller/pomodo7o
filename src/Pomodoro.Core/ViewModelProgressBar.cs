@@ -1,4 +1,4 @@
-namespace Pomodo7o
+﻿namespace Pomodoro.Core
 {
     public class ViewModelProgressBar : IProgressBar
     {

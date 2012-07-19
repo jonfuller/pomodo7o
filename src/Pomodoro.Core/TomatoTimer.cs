@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Timers;
 
-namespace Pomodo7o
+namespace Pomodoro.Core
 {
     public class TomatoTimer : IDisposable
     {
@@ -20,30 +20,30 @@ namespace Pomodo7o
             _timer = new Timer()
                 .Chain(t => t.Interval = 1.Seconds().TotalMilliseconds)
                 .Chain(t => t.Elapsed += (o, a) =>
-                              {
-                                  if(!IsRunning)
-                                      return;
+                {
+                    if(!IsRunning)
+                        return;
 
-                                  var timeRemaining = (_startTime + lengthOfTimer) - DateTime.Now;
-                                  var currentPercent = GetPercentageComplete(
-                                               DateTime.Now - _startTime,
-                                               lengthOfTimer);
+                    var timeRemaining = (_startTime + lengthOfTimer) - DateTime.Now;
+                    var currentPercent = GetPercentageComplete(
+                                DateTime.Now - _startTime,
+                                lengthOfTimer);
 
-                                  if(currentPercent != lastPercent)
-                                  {
-                                      lastPercent = currentPercent;
-                                      TickPct(currentPercent);
-                                  }
+                    if(currentPercent != lastPercent)
+                    {
+                        lastPercent = currentPercent;
+                        TickPct(currentPercent);
+                    }
 
-                                  TickRemaining(timeRemaining);
+                    TickRemaining(timeRemaining);
 
-                                  if(timeRemaining.IsNegativeOrZero())
-                                  {
-                                      Complete();
-                                      lastPercent = -1;
-                                      Stop();
-                                  }
-                              });
+                    if(timeRemaining.IsNegativeOrZero())
+                    {
+                        Complete();
+                        lastPercent = -1;
+                        Stop();
+                    }
+                });
         }
 
         public bool IsRunning

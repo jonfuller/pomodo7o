@@ -1,7 +1,8 @@
 using System;
 using System.IO;
 using System.Windows;
-using Pomodo7o.StructureMap;
+using Pomodoro.Core;
+using Pomodoro.Core.StructureMap;
 using StructureMap;
 
 using MSTaskbarManager = Microsoft.WindowsAPICodePack.Taskbar.TaskbarManager;
@@ -20,6 +21,7 @@ namespace Pomodo7o
                 {
                     scanner.With(new AutoNotifyConvention());
                     scanner.TheCallingAssembly();
+                    scanner.AssemblyContainingType<ViewModel>();
                 });
 
                 cfg.For<ITaskbarManager>()
@@ -31,6 +33,7 @@ namespace Pomodo7o
                         x.TheDefault.IsThis(new FakeTaskbarManager());
                     });
 
+                cfg.For<WpfViewModel>().Singleton();
                 cfg.For<ViewModel>().Singleton();
                 cfg.For<Pomodo7oWindow>().Singleton().Use<Pomodo7oWindow>();
 

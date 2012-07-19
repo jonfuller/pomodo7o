@@ -1,19 +1,19 @@
-using System.Windows.Media;
-using Pomodo7o.StructureMap;
+﻿using System.Drawing;
+using Pomodoro.Core.StructureMap;
 
-namespace Pomodo7o
+namespace Pomodoro.Core
 {
     [AutoNotify]
     public class ViewModel
     {
         public ViewModel()
         {
-            ProgressColor = Brushes.Green;
+            ProgressColor = Color.Green;
             TimeRemaining = string.Empty;
         }
 
         public virtual int Percent { get; set; }
-        public virtual Brush ProgressColor { get; set; }
+        public virtual Color ProgressColor { get; set; }
         public virtual bool IsPaused { get; set; }
         public virtual string TimeRemaining { get; set; }
 
@@ -24,14 +24,14 @@ namespace Pomodo7o
             switch(state)
             {
                 case ProgressState.Red:
-                    ProgressColor = Brushes.Red;
+                    ProgressColor = Color.Red;
                     break;
                 case ProgressState.Yellow:
-                    ProgressColor = Brushes.Yellow;
+                    ProgressColor = Color.Yellow;
                     break;
                 case ProgressState.Green:
                 default:
-                    ProgressColor = Brushes.Green;
+                    ProgressColor = Color.Green;
                     break;
             }
         }

@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace Pomodo7o
+namespace Pomodoro.Core
 {
     public interface IPomodoroPublisher : IDisposable
     {

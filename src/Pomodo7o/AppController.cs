@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Pomodoro.Core;
 
 namespace Pomodo7o
 {

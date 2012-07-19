@@ -3,7 +3,7 @@ using System.Linq;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
 
-namespace Pomodo7o.StructureMap
+namespace Pomodoro.Core.StructureMap
 {
     public class AutoNotifyConvention : IRegistrationConvention
     {

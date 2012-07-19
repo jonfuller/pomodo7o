@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Castle.Core.Interceptor;
 
-namespace Pomodo7o.StructureMap
+namespace Pomodoro.Core.StructureMap
 {
     public class PropertyChangedDecorator : IInterceptor
     {

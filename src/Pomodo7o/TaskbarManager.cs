@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
-using System.Windows;
 using Microsoft.WindowsAPICodePack.Taskbar;
+using Pomodoro.Core;
 
 namespace Pomodo7o
 {
@@ -14,9 +14,9 @@ namespace Pomodo7o
             _manager = manager;
         }
 
-        public void SetOverlayIcon(Window window, Icon icon, string accessibilityText)
+        public void SetOverlayIcon(IntPtr windowHandle, Icon icon, string accessibilityText)
         {
-            _manager.SetOverlayIcon(window, icon, accessibilityText);
+            _manager.SetOverlayIcon(windowHandle, icon, accessibilityText);
         }
 
         public void AddThumbButtons(IntPtr windowHandle, params ThumbnailToolbarButton[] buttons)
@@ -24,14 +24,14 @@ namespace Pomodo7o
             _manager.ThumbnailToolbars.AddButtons(windowHandle, buttons);
         }
 
-        public void SetProgressValue(int current, int max, Window window)
+        public void SetProgressValue(int current, int max, IntPtr windowHandle)
         {
-            _manager.SetProgressValue(current, max, window);
+            _manager.SetProgressValue(current, max, windowHandle);
         }
 
-        public void SetProgressState(TaskbarProgressBarState state, Window window)
+        public void SetProgressState(TaskbarProgressBarState state, IntPtr windowHandle)
         {
-            _manager.SetProgressState(state, window);
+            _manager.SetProgressState(state, windowHandle);
         }
 
         public void SetThumbnailClip(IntPtr handle, Rectangle rectangle)

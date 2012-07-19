@@ -1,13 +1,12 @@
-using System;
+﻿using System;
 using System.Drawing;
-using System.Windows;
 using Microsoft.WindowsAPICodePack.Taskbar;
 
-namespace Pomodo7o
+namespace Pomodoro.Core
 {
     public class FakeTaskbarManager : ITaskbarManager
     {
-        public void SetOverlayIcon(Window window, Icon icon, string accessibilityText)
+        public void SetOverlayIcon(IntPtr windowHandle, Icon icon, string accessibilityText)
         {
         }
 
@@ -15,11 +14,11 @@ namespace Pomodo7o
         {
         }
 
-        public void SetProgressValue(int current, int max, Window window)
+        public void SetProgressValue(int current, int max, IntPtr windowHandle)
         {
         }
 
-        public void SetProgressState(TaskbarProgressBarState state, Window window)
+        public void SetProgressState(TaskbarProgressBarState state, IntPtr windowHandle)
         {
         }
 

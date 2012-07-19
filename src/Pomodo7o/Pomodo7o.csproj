@@ -56,12 +56,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\..\nulib\castle.core\net-35\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.DynamicProxy2">
-      <HintPath>..\..\nulib\castle.dynamicproxy2\net-35\Castle.DynamicProxy2.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -100,6 +94,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WpfViewModel.cs" />
     <Page Include="Pomodo7o.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -113,16 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppController.cs" />
-    <Compile Include="BasePublisher.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="FakeTaskbarManager.cs" />
-    <Compile Include="IPomodoroPublisher.cs" />
-    <Compile Include="IProgressBar.cs" />
-    <Compile Include="ITaskbarManager.cs" />
     <Compile Include="NotifyPropertyChanged.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ProgressState.cs" />
-    <Compile Include="ProgressUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -131,16 +119,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="StructureMap\AutoNotifyAttribute.cs" />
-    <Compile Include="StructureMap\AutoNotifyConvention.cs" />
-    <Compile Include="StructureMap\LooseConstructorInstance.cs" />
-    <Compile Include="StructureMap\Notifiable.cs" />
-    <Compile Include="StructureMap\PropertyChangedDecorator.cs" />
     <Compile Include="TaskbarManager.cs" />
     <Compile Include="TaskbarProgressBar.cs" />
-    <Compile Include="TomatoTimer.cs" />
-    <Compile Include="ViewModel.cs" />
-    <Compile Include="ViewModelProgressBar.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -187,6 +167,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pomodoro.Core\Pomodoro.Core.csproj">
+      <Project>{B8D1EE96-2604-4918-9614-61148781836A}</Project>
+      <Name>Pomodoro.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

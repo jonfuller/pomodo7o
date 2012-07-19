@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using Castle.DynamicProxy;
 
-namespace Pomodo7o.StructureMap
+namespace Pomodoro.Core.StructureMap
 {
     public class Notifiable
     {

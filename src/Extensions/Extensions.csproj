@@ -73,9 +73,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pomodo7o\Pomodo7o.csproj">
-      <Project>{4B67B88E-12F0-4C47-8913-08CEF0AA8276}</Project>
-      <Name>Pomodo7o</Name>
+    <ProjectReference Include="..\Pomodoro.Core\Pomodoro.Core.csproj">
+      <Project>{B8D1EE96-2604-4918-9614-61148781836A}</Project>
+      <Name>Pomodoro.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

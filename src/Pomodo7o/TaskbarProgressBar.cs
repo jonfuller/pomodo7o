@@ -1,17 +1,19 @@
-using System.Windows;
+using System;
+using System.Windows.Interop;
 using Microsoft.WindowsAPICodePack.Taskbar;
+using Pomodoro.Core;
 
 namespace Pomodo7o
 {
     public class TaskbarProgressBar : IProgressBar
     {
         private readonly ITaskbarManager _manager;
-        private readonly Window _handle;
+        private readonly IntPtr _handle;
 
         public TaskbarProgressBar(ITaskbarManager manager, Pomodo7oWindow handle)
         {
             _manager = manager;
-            _handle = handle;
+            _handle = new WindowInteropHelper(handle).Handle;
         }
 
         public void SetState(ProgressState state)

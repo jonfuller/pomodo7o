@@ -1,6 +1,6 @@
 ﻿using System;
 using Growl.Connector;
-using Pomodo7o;
+using Pomodoro.Core;
 
 namespace Growler
 {

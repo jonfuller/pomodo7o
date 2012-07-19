@@ -2,7 +2,7 @@
 using StructureMap;
 using StructureMap.Pipeline;
 
-namespace Pomodo7o.StructureMap
+namespace Pomodoro.Core.StructureMap
 {
     public class LooseConstructorInstance : Instance
     {
